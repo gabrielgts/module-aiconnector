@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+
+                <!-- Top-level AI Studio section — parent for all Gtstudio module resources -->
+                <resource id="Gtstudio_AiConnector::gtstudio" title="AI Studio" sortOrder="55">
+
+                    <!-- Connector settings access (Stores > Configuration) -->
+                    <resource id="Gtstudio_AiConnector::config_gtstudio_aiconnector" title="Configuration" sortOrder="99"/>
+
+                </resource>
+
+            </resource>
+        </resources>
+    </acl>
+</config>

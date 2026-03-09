@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Gtstudio\AiConnector\Api\GenerateManagementInterface" type="Gtstudio\AiConnector\Model\GenerateManagement"/>
+    <preference for="Gtstudio\AiConnector\Api\Data\AiRequestInterface"
+                type="Gtstudio\AiConnector\Model\Data\AiRequest"/>
+    <preference for="Gtstudio\AiConnector\Api\Data\AiResponseInterface"
+                type="Gtstudio\AiConnector\Model\Data\AiResponse"/>
+    <preference for="Gtstudio\AiConnector\Api\TokenCostServiceInterface"
+                type="Gtstudio\AiConnector\Model\TokenCostService"/>
+
+    <!--
+        Default model pricing table (price per 1,000 tokens in USD).
+        Other modules can extend this by adding an `argument` merge in their own di.xml.
+    -->
+    <type name="Gtstudio\AiConnector\Model\TokenCostService">
+        <arguments>
+            <argument name="modelPricing" xsi:type="array">
+                <!-- Anthropic Claude -->
+                <item name="claude-opus-4-6"   xsi:type="number">0.015</item>
+                <item name="claude-sonnet-4-6" xsi:type="number">0.003</item>
+                <item name="claude-haiku-4-5"  xsi:type="number">0.00025</item>
+                <!-- Legacy aliases -->
+                <item name="claude-opus-4-5"   xsi:type="number">0.015</item>
+                <item name="claude-opus"        xsi:type="number">0.015</item>
+                <item name="claude-sonnet"      xsi:type="number">0.003</item>
+                <item name="claude-haiku"       xsi:type="number">0.00025</item>
+                <!-- OpenAI -->
+                <item name="gpt-4o"             xsi:type="number">0.005</item>
+                <item name="gpt-4o-mini"        xsi:type="number">0.00015</item>
+                <item name="gpt-4-turbo"        xsi:type="number">0.01</item>
+                <item name="gpt-4"              xsi:type="number">0.03</item>
+                <item name="gpt-3.5-turbo"      xsi:type="number">0.0005</item>
+                <item name="gpt-4.1"            xsi:type="number">0.008</item>
+                <item name="gpt-4.1-mini"       xsi:type="number">0.0004</item>
+                <item name="gpt-4.1-nano"       xsi:type="number">0.0001</item>
+                <item name="gpt-4.5"            xsi:type="number">0.075</item>
+                <item name="gpt-5"              xsi:type="number">0.01</item>
+                <item name="gpt-5-mini"         xsi:type="number">0.0004</item>
+                <item name="gpt-5-nano"         xsi:type="number">0.0001</item>
+                <item name="o1"                 xsi:type="number">0.015</item>
+                <item name="o1-mini"            xsi:type="number">0.003</item>
+                <item name="o3-mini"            xsi:type="number">0.0011</item>
+                <!-- Ollama (local — free) -->
+                <item name="ollama"             xsi:type="number">0.0</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

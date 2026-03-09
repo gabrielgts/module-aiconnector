@@ -1,0 +1,27 @@
+{
+    "name": "gtstudio/module-aiconnector",
+    "version": "1.0.0",
+    "description": "Core AI connector for Magento 2. Wraps neuron-core/neuron-ai to provide a unified, provider-agnostic AI interface for all Gtstudio modules.",
+    "type": "magento2-module",
+    "license": "BUSL-1.1",
+    "authors": [
+        {
+            "name": "Gabriel Silveira",
+            "role": "Lead Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "magento/framework": ">=2.4.4",
+        "neuron-core/neuron-ai": "^2",
+        "aws/aws-sdk-php": "^3"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Gtstudio\\AiConnector\\": ""
+        }
+    }
+}
