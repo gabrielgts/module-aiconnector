@@ -43,8 +43,6 @@ class AiRequestProcessor
             return $response->getContent();
 
         } catch (Throwable $e) {
-            // LocalizedException only accepts \Exception as $previous; wrap
-            // non-Exception throwables (e.g. Error) so the chain is preserved.
             $previous = $e instanceof \Exception ? $e : new \Exception($e->getMessage(), $e->getCode());
 
             throw new AiConnectorException(
@@ -68,11 +66,13 @@ class AiRequestProcessor
     private function buildRequest(?string $input): AiRequestInterface
     {
         return $this->aiRequestInterfaceFactory->create([
-            'prompt' => $this->injectContext($input),
-            'model' => $this->config->getModel(),
-            'max_tokens' => $this->config->getMaxTokens(),
-            'temperature' => $this->config->getTemperature(),
-            'rules' => $this->config->getRules()
+            'data' => [
+                'prompt'      => $this->injectContext($input),
+                'model'       => $this->config->getModel(),
+                'max_tokens'  => $this->config->getMaxTokens(),
+                'temperature' => $this->config->getTemperature(),
+                'rules'       => $this->config->getRules(),
+            ],
         ]);
     }
 

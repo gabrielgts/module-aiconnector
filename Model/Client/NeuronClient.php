@@ -46,20 +46,27 @@ class NeuronClient
         }
 
         $provider = $this->resolveProvider($request);
-        $messages = [];
 
         $rules = $request->getRules() ?: $this->config->getRules();
         if ($rules) {
-            $messages[] = new Message(MessageRole::SYSTEM, $rules);
+            $provider->systemPrompt($rules);
         }
 
-        $messages[] = new Message(MessageRole::USER, $request->getPrompt());
+        $response = $provider->chat([new Message(MessageRole::USER, $request->getPrompt())]);
 
-        $response = $provider->chat(...$messages);
+        $stopReason = $response->getMetadata('stop_reason');
+        if ($stopReason === 'length') {
+            throw new AiConnectorException(__(
+                'AI response was truncated because it reached the maximum token limit (stop_reason: length). '
+                . 'Increase the max_tokens setting or simplify your prompt.'
+            ));
+        }
 
         return $this->aiResponseInterfaceFactory->create([
-            'content' => $response->getContent(),
-            'raw'     => $response->jsonSerialize(),
+            'data' => [
+                'content' => $response->getContent(),
+                'raw'     => $response->jsonSerialize(),
+            ],
         ]);
     }
 

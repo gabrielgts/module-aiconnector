@@ -2,7 +2,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <!-- Top-level AI Studio section (between Marketing=50 and Content=60) -->
         <add id="Gtstudio_AiConnector::gtstudio"
              title="AI Studio"
              module="Gtstudio_AiConnector"
@@ -10,12 +9,19 @@
              resource="Gtstudio_AiConnector::gtstudio"
              translate="title"/>
 
-        <!-- Settings shortcut → Stores > Configuration > AI Connector -->
+        <add id="Gtstudio_AiConnector::settings"
+            title="Settings"
+            module="Gtstudio_AiConnector"
+            sortOrder="80"
+            parent="Gtstudio_AiConnector::gtstudio"
+            resource="Gtstudio_AiConnector::management"
+            translate="title"/>
+
         <add id="Gtstudio_AiConnector::config_link"
              title="Settings"
              module="Gtstudio_AiConnector"
              sortOrder="99"
-             parent="Gtstudio_AiConnector::gtstudio"
+             parent="Gtstudio_AiConnector::settings"
              action="adminhtml/system_config/edit/section/aiconnector"
              resource="Gtstudio_AiConnector::config_gtstudio_aiconnector"
              translate="title"/>
