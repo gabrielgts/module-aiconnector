@@ -1,6 +1,5 @@
 {
     "name": "gtstudio/module-aiconnector",
-    "version": "1.0.0",
     "description": "Core AI connector for Magento 2. Wraps neuron-core/neuron-ai to provide a unified, provider-agnostic AI interface for all Gtstudio modules.",
     "type": "magento2-module",
     "license": "BUSL-1.1",
