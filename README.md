@@ -2,9 +2,22 @@
 
 Core AI provider abstraction for Magento 2. Every other Gtstudio AI module depends on this one to communicate with external AI providers.
 
+## Preview
+
+![AiConnector — provider configuration and on-demand generation](docs/images/aiconnector-preview.gif)
+
 ## AI Studio Ecosystem
 
 `Gtstudio_AiConnector` is the foundation of the **AI Studio** suite — a collection of modules that bring AI capabilities to the Magento admin without coupling your store to a single provider. Each module builds on top of this connector and can be installed independently.
+
+| Module | Repository | Description |
+|--------|-----------|-------------|
+| **Gtstudio_AiConnector** | *(this module)* | Core AI provider abstraction |
+| **Gtstudio_AiAgents** | [module-ai-agents](https://github.com/gabrielgts/module-ai-agents) | Agent & tool orchestration, cron scheduling, execution log |
+| **Gtstudio_AiWidgets** | [module-ai-widgets](https://github.com/gabrielgts/module-ai-widgets) | Floating admin chat widget + PageBuilder AI generator |
+| **Gtstudio_AiDataQuery** | [module-ai-data-query](https://github.com/gabrielgts/module-ai-data-query) | Natural-language store analytics (privacy-first) |
+| **Gtstudio_AiKnowledgeBase** | [module-ai-knowledge-base](https://github.com/gabrielgts/module-ai-knowledge-base) | Document upload & RAG retrieval for agents |
+| **Gtstudio_AiDashboard** | *(coming soon)* | AI-powered KPI dashboard with ML insights |
 
 ### Gtstudio_AiAgents — Agent & Tool Orchestration
 
@@ -83,10 +96,9 @@ Upload PDF or plain-text documents in the admin and associate them with agents. 
 ## Installation
 
 ```bash
+composer require gtstudio/module-aiconnector
 php bin/magento module:enable Gtstudio_AiConnector
 php bin/magento setup:upgrade
-php bin/magento setup:di:compile
-php bin/magento cache:flush
 ```
 
 ## Configuration
