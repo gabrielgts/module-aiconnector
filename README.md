@@ -17,7 +17,7 @@ Core AI provider abstraction for Magento 2. Every other Gtstudio AI module depen
 | **Gtstudio_AiWidgets** | [module-ai-widgets](https://github.com/gabrielgts/module-ai-widgets) | Floating admin chat widget + PageBuilder AI generator |
 | **Gtstudio_AiDataQuery** | [module-ai-data-query](https://github.com/gabrielgts/module-ai-data-query) | Natural-language store analytics (privacy-first) |
 | **Gtstudio_AiKnowledgeBase** | [module-ai-knowledge-base](https://github.com/gabrielgts/module-ai-knowledge-base) | Document upload & RAG retrieval for agents |
-| **Gtstudio_AiDashboard** | *(coming soon)* | AI-powered KPI dashboard with ML insights |
+| **Gtstudio_AiDashboard** | [module-ai-dashboard](https://github.com/gabrielgts/module-ai-dashboard) | AI-powered KPI dashboard with ML insights |
 
 ### Gtstudio_AiAgents — Agent & Tool Orchestration
 
