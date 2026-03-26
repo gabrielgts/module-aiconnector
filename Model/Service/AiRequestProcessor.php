@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Gtstudio\AiConnector\Model\Service;
 
+use Gtstudio\AiConnector\Api\Data\AiRequestInterface;
+use Gtstudio\AiConnector\Api\Data\AiRequestInterfaceFactory;
 use Gtstudio\AiConnector\Model\Client\NeuronClient;
 use Gtstudio\AiConnector\Model\Config\ConfigProvider;
-use Gtstudio\AiConnector\Api\Data\AiRequestInterfaceFactory;
-use Gtstudio\AiConnector\Api\Data\AiRequestInterface;
 use Gtstudio\AiConnector\Model\Exception\AiConnectorException;
 use Magento\Framework\App\State;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -17,6 +17,14 @@ use Throwable;
 
 class AiRequestProcessor
 {
+    /**
+     * @param NeuronClient $client
+     * @param ConfigProvider $config
+     * @param StoreManagerInterface $storeManager
+     * @param AiRequestInterfaceFactory $aiRequestInterfaceFactory
+     * @param State $appState
+     * @param CustomerSession $customerSession
+     */
     public function __construct(
         private NeuronClient $client,
         private ConfigProvider $config,
@@ -28,6 +36,10 @@ class AiRequestProcessor
     }
 
     /**
+     * Process an input string through the AI provider and return the response.
+     *
+     * @param string $input
+     * @return string
      * @throws NoSuchEntityException
      * @throws AiConnectorException
      */
@@ -48,12 +60,12 @@ class AiRequestProcessor
             throw new AiConnectorException(
                 __('AI request processing failed.'),
                 [
-                    'input'        => $input,
-                    'store_id'     => $this->getStoreId(),
-                    'area_code'    => $this->getAreaCode(),
-                    'customer_id'  => $this->getCustomerId(),
-                    'model'        => $this->config->getModel(),
-                    'provider'     => $this->config->getProvider(),
+                    'input'       => $input,
+                    'store_id'    => $this->getStoreId(),
+                    'area_code'   => $this->getAreaCode(),
+                    'customer_id' => $this->getCustomerId(),
+                    'model'       => $this->config->getModel(),
+                    'provider'    => $this->config->getProvider(),
                 ],
                 $previous
             );
@@ -61,6 +73,10 @@ class AiRequestProcessor
     }
 
     /**
+     * Build an AiRequestInterface from the input string and current config.
+     *
+     * @param string|null $input
+     * @return AiRequestInterface
      * @throws NoSuchEntityException
      */
     private function buildRequest(?string $input): AiRequestInterface
@@ -77,6 +93,10 @@ class AiRequestProcessor
     }
 
     /**
+     * Prepend store/area/customer context to the raw input string.
+     *
+     * @param string $input
+     * @return string
      * @throws NoSuchEntityException
      */
     private function injectContext(string $input): string
@@ -91,6 +111,10 @@ class AiRequestProcessor
     }
 
     /**
+     * Validate that the connector is properly configured and the input is non-empty.
+     *
+     * @param string $input
+     * @return void
      * @throws AiConnectorException
      */
     private function validate(string $input): void
@@ -121,13 +145,21 @@ class AiRequestProcessor
     }
 
     /**
+     * Get the current store ID.
+     *
+     * @return int
      * @throws NoSuchEntityException
      */
     private function getStoreId(): int
     {
-        return (int)$this->storeManager->getStore()->getId();
+        return (int) $this->storeManager->getStore()->getId();
     }
 
+    /**
+     * Get the current Magento area code.
+     *
+     * @return string
+     */
     private function getAreaCode(): string
     {
         try {
@@ -137,10 +169,15 @@ class AiRequestProcessor
         }
     }
 
+    /**
+     * Get the logged-in customer ID, or null for guests.
+     *
+     * @return int|null
+     */
     private function getCustomerId(): ?int
     {
         if ($this->customerSession->isLoggedIn()) {
-            return (int)$this->customerSession->getCustomerId();
+            return (int) $this->customerSession->getCustomerId();
         }
 
         return null;

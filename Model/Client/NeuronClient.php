@@ -30,6 +30,10 @@ class NeuronClient
     // Anthropic requires a fixed API version header; update when Anthropic deprecates this version.
     public const ANTHROPIC_API_VERSION = '2026-02-05';
 
+    /**
+     * @param ConfigProvider $config
+     * @param AiResponseInterfaceFactory $aiResponseInterfaceFactory
+     */
     public function __construct(
         private readonly ConfigProvider $config,
         private readonly AiResponseInterfaceFactory $aiResponseInterfaceFactory
@@ -37,6 +41,10 @@ class NeuronClient
     }
 
     /**
+     * Send a request to the configured AI provider and return a response.
+     *
+     * @param AiRequestInterface $request
+     * @return AiResponseInterface
      * @throws AiConnectorException
      */
     public function send(AiRequestInterface $request): AiResponseInterface
@@ -71,6 +79,10 @@ class NeuronClient
     }
 
     /**
+     * Instantiate the provider class for the currently configured provider name.
+     *
+     * @param AiRequestInterface|null $request
+     * @return AIProviderInterface
      * @throws AiConnectorException
      */
     public function resolveProvider(?AiRequestInterface $request = null): AIProviderInterface

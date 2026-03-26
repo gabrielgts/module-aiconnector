@@ -12,9 +12,9 @@ interface GenerateManagementInterface
 
     /**
      * POST for generate api
+     *
      * @param string $param
      * @return string
      */
     public function generate($param);
 }
-

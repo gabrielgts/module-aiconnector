@@ -14,8 +14,12 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 class GenerateManagement implements GenerateManagementInterface
 {
+    /** @var AiRequestProcessor */
     private AiRequestProcessor $processor;
 
+    /**
+     * @param AiRequestProcessor $processor
+     */
     public function __construct(
         AiRequestProcessor $processor
     ) {
@@ -23,6 +27,10 @@ class GenerateManagement implements GenerateManagementInterface
     }
 
     /**
+     * Generate an AI response for the given prompt.
+     *
+     * @param string $param
+     * @return string
      * @throws NoSuchEntityException
      * @throws AiConnectorException
      */
@@ -31,4 +39,3 @@ class GenerateManagement implements GenerateManagementInterface
         return $this->processor->process($param);
     }
 }
-

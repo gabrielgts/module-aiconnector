@@ -15,10 +15,7 @@ use Gtstudio\AiConnector\Api\TokenCostServiceInterface;
 class TokenCostService implements TokenCostServiceInterface
 {
     /**
-     * @param array<string, float> $modelPricing
-     *   Price per 1 000 tokens, keyed by lowercase model identifier.
-     *   Injected via di.xml so that modules can extend pricing without
-     *   subclassing this service.
+     * @param array $modelPricing Price per 1000 tokens keyed by lowercase model identifier; injected via di.xml.
      */
     public function __construct(
         private readonly array $modelPricing = []
